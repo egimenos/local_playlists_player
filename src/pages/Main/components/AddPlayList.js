@@ -26,6 +26,7 @@ const AddPlayList = ({ handleAddPlayList }) => {
 				</Text>
 				<Divider mb='4' />
 				<Box
+					minW='90%'
 					boxShadow='rgb(238, 234, 244) 0px 0px 5px inset'
 					mb='4'
 					p='4'
