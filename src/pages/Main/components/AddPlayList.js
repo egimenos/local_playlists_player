@@ -49,6 +49,7 @@ const AddPlayList = ({ handleAddPlayList }) => {
 					onClick={() => handleAddPlayList(title)}
 					aria-label='add new playlist'
 					icon={<AddIcon />}
+					_hover={{ backgroundColor: 'teal.200' }}
 				/>
 			</Flex>
 		</Box>
