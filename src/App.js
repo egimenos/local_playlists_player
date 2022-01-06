@@ -4,10 +4,6 @@ import Navbar from './layout/Navbar';
 import Main from './pages/Main/Main';
 import '@fontsource/kanit';
 import '@fontsource/aldrich';
-import Dexie from 'dexie';
-
-const db = new Dexie('PlayLists');
-db.version(1).stores({ playlists: '++id,title,videos' });
 
 function App() {
 	const bg = 'linear-gradient(139.73deg, rgb(229, 253, 255) 0%, rgb(243, 239, 255) 100%)';
@@ -25,7 +21,7 @@ function App() {
 		<ChakraProvider theme={theme}>
 			<Box minH='100vh' bg='backgroundMain'>
 				<Navbar />
-				<Main db={db} />
+				<Main />
 			</Box>
 		</ChakraProvider>
 	);

@@ -1,16 +1,14 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { db } from '../../models/db';
+
 import { selectVideoFiles } from '../../services/videoSelector.service';
 import AddPlayList from './components/AddPlayList';
 import PlayListSelector from './components/PlaylistsSelector';
-const Main = ({ db }) => {
+const Main = () => {
 	const playlists = useLiveQuery(() => db.playlists.toArray(), []);
-
 	const addPlaylistToDb = async (playlist) => {
-		const result = await db.playlists.add({
-			title: playlist.title,
-			videos: playlist.videos,
-		});
+		const result = db.addPlaylist(playlist);
 		console.log(result);
 	};
 
