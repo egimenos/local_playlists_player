@@ -8,8 +8,7 @@ import PlayListSelector from './components/PlaylistsSelector';
 const Main = () => {
 	const playlists = useLiveQuery(() => db.playlists.toArray(), []);
 	const addPlaylistToDb = async (playlist) => {
-		const result = db.addPlaylist(playlist);
-		console.log(result);
+		await db.addPlaylist(playlist);
 	};
 
 	const handleAddPlaylist = async (title) => {

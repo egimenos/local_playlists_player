@@ -7,7 +7,7 @@ class PlayListsDB extends Dexie {
 	}
 
 	addPlaylist(playlist) {
-		this.playlists.add({
+		return this.playlists.add({
 			title: playlist.title,
 			videos: playlist.videos,
 		});
