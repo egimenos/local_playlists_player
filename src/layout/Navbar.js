@@ -1,13 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react';
-import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import { Flex, Image, Text } from '@chakra-ui/react';
+import playlistLogo from '../assets/playlist.png';
 
 const Navbar = () => {
 	return (
-		<Box boxShadow='lg' bgColor='cyan.200'>
-			<Flex justify='end'>
-				<ColorModeSwitcher />
-			</Flex>
-		</Box>
+		<Flex py='2' px='4' align='center' boxShadow='sm' bgColor='white' justify='start'>
+			<Image mr='4' boxSize='50px' src={playlistLogo} alt='local playlist logo' />
+			<Text fontSize='xl' fontWeight='bold'>
+				Local Playlists Player
+			</Text>
+		</Flex>
 	);
 };
 

@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 ReactDOM.render(
-  <StrictMode>
-    <ColorModeScript />
-    <App />
-  </StrictMode>,
-  document.getElementById('root')
+	<StrictMode>
+		<ColorModeScript />
+		<App />
+	</StrictMode>,
+	document.getElementById('root')
 );
