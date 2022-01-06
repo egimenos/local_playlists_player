@@ -7,21 +7,21 @@ import AddPlayList from './components/AddPlayList';
 import PlayListSelector from './components/PlaylistsSelector';
 const Main = () => {
 	const playlists = useLiveQuery(() => db.playlists.toArray(), []);
-	const addPlaylistToDb = async (playlist) => {
-		await db.addPlaylist(playlist);
-	};
 
 	const handleAddPlaylist = async (title) => {
 		const fileHandlers = await selectVideoFiles();
 		const newPlaylist = { title: title, videos: fileHandlers };
-		console.log(newPlaylist);
-		addPlaylistToDb(newPlaylist);
+		await db.addPlaylist(newPlaylist);
+	};
+
+	const handleDeletePlaylist = (id) => {
+		db.deletePlaylist(id);
 	};
 
 	return (
 		<Flex p='4'>
 			<Box mr='6' flexGrow='1'>
-				<PlayListSelector playlists={playlists} />
+				<PlayListSelector playlists={playlists} handleDeletePlaylist={handleDeletePlaylist} />
 			</Box>
 			<Box flexBasis='30%'>
 				<AddPlayList handleAddPlayList={handleAddPlaylist} />

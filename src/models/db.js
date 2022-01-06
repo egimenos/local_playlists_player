@@ -18,6 +18,13 @@ class PlayListsDB extends Dexie {
 				return id;
 			});
 	}
+
+	deletePlaylist(playlistId) {
+		return this.transaction('rw', this.playlists, this.videos, () => {
+			this.videos.where({ playlistId }).delete();
+			this.playlists.delete(playlistId);
+		});
+	}
 }
 
 export const db = new PlayListsDB();

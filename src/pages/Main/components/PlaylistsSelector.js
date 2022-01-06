@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import PlayListItem from './PlayListItem';
 
-const PlayListSelector = ({ playlists }) => {
+const PlayListSelector = ({ playlists, handleDeletePlaylist }) => {
 	if (!playlists || playlists.length === 0)
 		return (
 			<Text color='purple.700' fontSize='3xl' fontWeight='bolder'>
@@ -8,9 +9,14 @@ const PlayListSelector = ({ playlists }) => {
 			</Text>
 		);
 	return (
-		<Box bgColor='yellow.200'>
-			<Flex p='2'>List of playlists</Flex>
-		</Box>
+		<Flex direction='column'>
+			<Text fontSize='xl' color='purple.700' fontWeight='bold' mb='4'>
+				List of playlists
+			</Text>
+			{playlists.map((playlist) => (
+				<PlayListItem handleDeletePlaylist={handleDeletePlaylist} playlist={playlist} key={playlist.id} />
+			))}
+		</Flex>
 	);
 };
 
