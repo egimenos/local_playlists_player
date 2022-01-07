@@ -1,7 +1,12 @@
 import { Flex, IconButton, Text, Tag } from '@chakra-ui/react';
 import { DeleteIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
+	const navigate = useNavigate();
+	const handleNavigateToPlaylistDetail = async () => {
+		navigate(`/playlists/${playlist.id}`);
+	};
 	return (
 		<Flex
 			justifyContent='space-between'
@@ -26,6 +31,7 @@ const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 				aria-label='add new playlist'
 				icon={<ArrowRightIcon />}
 				_hover={{ backgroundColor: 'teal.200' }}
+				onClick={handleNavigateToPlaylistDetail}
 			/>
 			<IconButton
 				boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
