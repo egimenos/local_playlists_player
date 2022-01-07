@@ -1,7 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../models/db';
-
 import { selectVideoFiles } from '../../services/videoSelector.service';
 import AddPlayList from './components/AddPlayList';
 import PlayListSelector from './components/PlaylistsSelector';

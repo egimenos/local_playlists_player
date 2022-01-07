@@ -11,7 +11,6 @@ class PlayListsDB extends Dexie {
 
 	addPlaylist(playlist) {
 		const sortedVideos = playlist.videos.sort((a, b) => a.name - b.name);
-		console.log(sortedVideos);
 		return this.playlists
 			.add({
 				title: playlist.title,

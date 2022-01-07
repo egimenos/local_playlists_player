@@ -28,7 +28,7 @@ const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 				boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
 				backgroundColor='accent'
 				color='white'
-				aria-label='add new playlist'
+				aria-label='go to playlist detail'
 				icon={<ArrowRightIcon />}
 				_hover={{ backgroundColor: 'teal.200' }}
 				onClick={handleNavigateToPlaylistDetail}
@@ -38,7 +38,7 @@ const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 				backgroundColor='red.300'
 				color='white'
 				onClick={() => handleDeletePlaylist(playlist.id)}
-				aria-label='add new playlist'
+				aria-label='delete playlist'
 				icon={<DeleteIcon />}
 				_hover={{ backgroundColor: 'red.100' }}
 			/>
