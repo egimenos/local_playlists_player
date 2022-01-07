@@ -3,17 +3,22 @@ import Dexie from 'dexie';
 class PlayListsDB extends Dexie {
 	constructor() {
 		super('PlayListsDB');
-		this.version(1).stores({ playlists: '++id,title', videos: '++id, title, handler, completed, playlistId' });
+		this.version(1).stores({
+			playlists: '++id,title',
+			videos: '++id, title, handler, completed, position, playlistId',
+		});
 	}
 
 	addPlaylist(playlist) {
+		const sortedVideos = playlist.videos.sort((a, b) => a.name - b.name);
+		console.log(sortedVideos);
 		return this.playlists
 			.add({
 				title: playlist.title,
 			})
 			.then((id) => {
-				for (const video of playlist.videos) {
-					this.videos.add({ title: video.name, handler: video, completed: false, playlistId: id });
+				for (const [index, video] of sortedVideos.entries()) {
+					this.videos.add({ title: video.name, handler: video, completed: false, playlistId: id, position: index + 1 });
 				}
 				return id;
 			});
