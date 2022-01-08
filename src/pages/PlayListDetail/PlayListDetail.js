@@ -7,7 +7,7 @@ import { db } from '../../models/db';
 import { useState } from 'react';
 import { getSrc } from '../../utils/getSrc';
 
-const PlayListDetail = () => {
+const PlaylistDetail = () => {
 	const params = useParams();
 	const id = params.playlistId;
 
@@ -63,4 +63,4 @@ const PlayListDetail = () => {
 	);
 };
 
-export default PlayListDetail;
+export default PlaylistDetail;
