@@ -14,6 +14,7 @@ class PlayListsDB extends Dexie {
 		return this.playlists
 			.add({
 				title: playlist.title,
+				lastPlayed: 1,
 			})
 			.then((id) => {
 				for (const [index, video] of sortedVideos.entries()) {
@@ -30,10 +31,13 @@ class PlayListsDB extends Dexie {
 		});
 	}
 
-	async toggleCompletedVideoStatus(id) {
-		const video = await this.videos.where({ id: id }).first();
-		const currentStatus = video.completed;
-		this.videos.update(id, { completed: !currentStatus });
+	updateCompletedVideoStatus(id, status) {
+		this.videos.update(id, { completed: status });
+	}
+
+	updateLastCompletedVideo(playlistId, videoId) {
+		console.log(playlistId, videoId);
+		this.playlists.update(playlistId, { lastPlayed: 4 }).then((result) => console.log(result));
 	}
 }
 

@@ -9,10 +9,10 @@ import { getSrc } from '../../utils/getSrc';
 
 const PlaylistDetail = () => {
 	const params = useParams();
-	const id = params.playlistId;
+	const playlistId = params.playlistId;
 
-	const playlist = useLiveQuery(() => db.playlists.where({ id: Number(id) }).toArray(), []);
-	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(id) }).toArray(), []);
+	const playlist = useLiveQuery(() => db.playlists.where({ id: Number(playlistId) }).toArray(), []);
+	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
 	const [url, setUrl] = useState(''); // video url to play
 	const [playingId, setPlayingId] = useState(null);
@@ -25,7 +25,8 @@ const PlaylistDetail = () => {
 
 	const handleOnEndedPlaying = () => {
 		console.log(playingId);
-		db.toggleCompletedVideoStatus(playingId);
+		db.updateCompletedVideoStatus(playingId, true);
+		db.updateLastCompletedVideo(playlistId, playingId);
 	};
 
 	if (!videos || !playlist)
@@ -39,7 +40,7 @@ const PlaylistDetail = () => {
 		return (
 			<Flex>
 				<Text p='4' color='purple.700' fontSize='3xl' fontWeight='bolder'>
-					Playlist not found: {id}
+					Playlist not found: {playlistId}
 				</Text>
 			</Flex>
 		);
