@@ -1,8 +1,8 @@
 import { Text, Flex, IconButton, Tag, Icon } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
-import { MdSettings } from 'react-icons/md';
+import { BsPlayFill } from 'react-icons/bs';
 
-const VideoListItem = ({ video }) => {
+const VideoListItem = ({ video, handlePlayVideo }) => {
 	return (
 		<Flex
 			justifyContent='space-between'
@@ -25,8 +25,9 @@ const VideoListItem = ({ video }) => {
 				backgroundColor='accent'
 				color='white'
 				aria-label='play this video'
-				icon={<Icon as={MdSettings} />}
+				icon={<Icon as={BsPlayFill} />}
 				_hover={{ backgroundColor: 'teal.200' }}
+				onClick={() => handlePlayVideo(video.handler)}
 			/>
 			<IconButton
 				boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
