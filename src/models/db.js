@@ -4,7 +4,7 @@ class PlayListsDB extends Dexie {
 	constructor() {
 		super('PlayListsDB');
 		this.version(1).stores({
-			playlists: '++id,title',
+			playlists: '++id,title, lastPlayed',
 			videos: '++id, title, handler, completed, position, playlistId',
 		});
 	}
@@ -35,6 +35,8 @@ class PlayListsDB extends Dexie {
 		const currentStatus = video.completed;
 		this.videos.update(id, { completed: !currentStatus });
 	}
+
+	async updateLastCompletedVideo(playlistId, videoId) {}
 }
 
 export const db = new PlayListsDB();

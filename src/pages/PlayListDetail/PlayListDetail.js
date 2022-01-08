@@ -36,11 +36,13 @@ const PlaylistDetail = () => {
 		);
 
 	if (playlist && playlist.length === 0) {
-		<Flex>
-			<Text p='4' color='purple.700' fontSize='3xl' fontWeight='bolder'>
-				Playlist not found: {id}
-			</Text>
-		</Flex>;
+		return (
+			<Flex>
+				<Text p='4' color='purple.700' fontSize='3xl' fontWeight='bolder'>
+					Playlist not found: {id}
+				</Text>
+			</Flex>
+		);
 	}
 
 	if (videos && videos.length === 0)
