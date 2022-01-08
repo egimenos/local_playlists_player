@@ -6,7 +6,7 @@ import Navbar from './layout/Navbar';
 import Main from './pages/Main/Main';
 import '@fontsource/kanit';
 import '@fontsource/aldrich';
-import PlaylistDetail from './pages/PlaylistDetail/PlaylistDetail';
+import PlaylistDetail from './pages/PlayListDetail/PlayListDetail';
 
 function App() {
 	return (
