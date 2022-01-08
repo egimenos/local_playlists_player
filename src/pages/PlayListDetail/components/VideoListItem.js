@@ -18,6 +18,11 @@ const VideoListItem = ({ video, handlePlayVideo }) => {
 			<Text fontSize='xl' color='purple.700' fontWeight='bold'>
 				{video.title}
 			</Text>
+			{video.completed && (
+				<Text fontWeight='bold' color='purple.700' mr='4' ml='auto'>
+					COMPLETED!
+				</Text>
+			)}
 			<IconButton
 				ml='auto'
 				mr='4'
@@ -27,7 +32,7 @@ const VideoListItem = ({ video, handlePlayVideo }) => {
 				aria-label='play this video'
 				icon={<Icon as={BsPlayFill} />}
 				_hover={{ backgroundColor: 'teal.200' }}
-				onClick={() => handlePlayVideo(video.handler)}
+				onClick={() => handlePlayVideo(video.handler, video.id)}
 			/>
 			<IconButton
 				boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'

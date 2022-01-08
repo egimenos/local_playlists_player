@@ -29,6 +29,12 @@ class PlayListsDB extends Dexie {
 			this.playlists.delete(playlistId);
 		});
 	}
+
+	async toggleCompletedVideoStatus(id) {
+		const video = await this.videos.where({ id: id }).first();
+		const currentStatus = video.completed;
+		this.videos.update(id, { completed: !currentStatus });
+	}
 }
 
 export const db = new PlayListsDB();

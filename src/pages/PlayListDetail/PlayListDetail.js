@@ -15,11 +15,17 @@ const PlaylistDetail = () => {
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(id) }).toArray(), []);
 
 	const [url, setUrl] = useState(''); // video url to play
+	const [playingId, setPlayingId] = useState(null);
 
-	const handlePlayVideo = async (fileHandler) => {
+	const handlePlayVideo = async (fileHandler, id) => {
 		const url = await getSrc(fileHandler);
-		console.log(url);
 		setUrl(url);
+		setPlayingId(id);
+	};
+
+	const handleOnEndedPlaying = () => {
+		console.log(playingId);
+		db.toggleCompletedVideoStatus(playingId);
 	};
 
 	if (!videos || !playlist)
@@ -57,7 +63,7 @@ const PlaylistDetail = () => {
 				</Text>
 			</Flex>
 
-			<Player url={url} />
+			<Player handleOnEndedPlaying={handleOnEndedPlaying} url={url} />
 			<VideoList handlePlayVideo={handlePlayVideo} videos={videos} />
 		</Flex>
 	);
