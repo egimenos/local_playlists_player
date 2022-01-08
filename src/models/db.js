@@ -35,8 +35,6 @@ class PlayListsDB extends Dexie {
 		const currentStatus = video.completed;
 		this.videos.update(id, { completed: !currentStatus });
 	}
-
-	async updateLastCompletedVideo(playlistId, videoId) {}
 }
 
 export const db = new PlayListsDB();
