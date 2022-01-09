@@ -5,14 +5,16 @@ import { BsPlayFill } from 'react-icons/bs';
 const VideoListItem = ({ video, handlePlayVideo }) => {
 	return (
 		<Flex
+			overflow-y='scroll'
 			justifyContent='space-between'
 			px='6'
 			py='2'
-			borderRadius='24px'
+			borderRadius='6px'
 			backgroundColor='white'
 			boxShadow='sm'
 			align='center'
-			mb='4'
+			border='1px'
+			borderColor='gray.200'
 		>
 			<Tag mr='4'>{video.position}</Tag>
 			<Text fontSize='xl' color='purple.700' fontWeight='bold'>

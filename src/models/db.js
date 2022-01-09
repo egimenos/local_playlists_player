@@ -5,7 +5,7 @@ class PlayListsDB extends Dexie {
 		super('PlayListsDB');
 		this.version(1).stores({
 			playlists: '++id,title, lastPlayed',
-			videos: '++id, title, handler, completed, position, playlistId',
+			videos: '++id, title, handler, completed, playlistId, [position+playlistId]',
 		});
 	}
 

@@ -30,6 +30,7 @@ const PlaylistDetail = () => {
 		db.updateCompletedVideoStatus(videoPlaying.id, true);
 		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
 		const nextVideo = await nextVideoOntheList();
+		console.log(nextVideo);
 		if (nextVideo[0]) {
 			handlePlayVideo(nextVideo[0]);
 		}
@@ -37,7 +38,8 @@ const PlaylistDetail = () => {
 
 	const nextVideoOntheList = () => {
 		const currentPosition = videoPlaying.position;
-		return db.videos.where({ position: currentPosition + 1 }).toArray();
+		console.log(currentPosition, playlistId);
+		return db.videos.where({ position: currentPosition + 1, playlistId: Number(playlistId) }).toArray();
 	};
 
 	if (!videos || !playlist)
@@ -67,7 +69,7 @@ const PlaylistDetail = () => {
 		);
 
 	return (
-		<Flex p='4' direction='column'>
+		<Flex p='4' direction='column' height='100vh'>
 			<Flex justify='start'>
 				<Text mr='4' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Playlist:
