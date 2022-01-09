@@ -7,8 +7,12 @@ const Player = ({ video, handleOnEndedPlaying }) => {
 	const [url, setUrl] = useState('');
 
 	const getUrlToPlay = useCallback(async (handler) => {
-		const urlToPlay = await getSrc(handler);
-		setUrl(urlToPlay);
+		try {
+			const urlToPlay = await getSrc(handler);
+			setUrl(urlToPlay);
+		} catch (error) {
+			console.log(error);
+		}
 	}, []);
 
 	useEffect(() => {
