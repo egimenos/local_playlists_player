@@ -36,8 +36,7 @@ class PlayListsDB extends Dexie {
 	}
 
 	updateLastCompletedVideo(playlistId, videoId) {
-		console.log(playlistId, videoId);
-		this.playlists.update(playlistId, { lastPlayed: 4 }).then((result) => console.log(result));
+		this.playlists.update(Number(playlistId), { lastPlayed: videoId });
 	}
 }
 
