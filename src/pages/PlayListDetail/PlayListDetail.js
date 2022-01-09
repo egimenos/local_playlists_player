@@ -4,7 +4,7 @@ import VideoList from './components/VideoList';
 import Player from './components/Player';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../models/db';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const PlaylistDetail = () => {
 	const params = useParams();
@@ -14,6 +14,13 @@ const PlaylistDetail = () => {
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
 	const [videoPlaying, setVideoPlaying] = useState(null); // video url to play
+
+	useEffect(() => {
+		if (playlist) {
+			const lastPlayed = playlist[0].lastPlayed;
+			db.videos.get(lastPlayed).then((video) => setVideoPlaying(video));
+		}
+	}, [playlist]);
 
 	const handlePlayVideo = async (video) => {
 		setVideoPlaying({ ...video });
