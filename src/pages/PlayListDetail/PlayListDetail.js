@@ -22,17 +22,15 @@ const PlaylistDetail = () => {
 	const handleOnEndedPlaying = async () => {
 		db.updateCompletedVideoStatus(videoPlaying.id, true);
 		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
-		const nextVideo = await nextVideoOntheList(videoPlaying.id);
-		console.log(nextVideo);
-		if (nextVideo) {
-			handlePlayVideo(nextVideo.handler, nextVideo.videoId);
+		const nextVideo = await nextVideoOntheList();
+		if (nextVideo[0]) {
+			handlePlayVideo(nextVideo[0]);
 		}
 	};
 
-	const nextVideoOntheList = (videoId) => {
-		const currentPosition = videos.filter((video) => video.id === videoId).position;
-		console.log(videos);
-		return db.videos.get({ position: currentPosition + 1 });
+	const nextVideoOntheList = () => {
+		const currentPosition = videoPlaying.position;
+		return db.videos.where({ position: currentPosition + 1 }).toArray();
 	};
 
 	if (!videos || !playlist)
