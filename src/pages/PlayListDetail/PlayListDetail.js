@@ -5,7 +5,6 @@ import Player from './components/Player';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../models/db';
 import { useState } from 'react';
-import { getSrc } from '../../utils/getSrc';
 
 const PlaylistDetail = () => {
 	const params = useParams();
@@ -14,19 +13,26 @@ const PlaylistDetail = () => {
 	const playlist = useLiveQuery(() => db.playlists.where({ id: Number(playlistId) }).toArray(), []);
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
-	const [url, setUrl] = useState(''); // video url to play
-	const [playingId, setPlayingId] = useState(null);
+	const [videoPlaying, setVideoPlaying] = useState(null); // video url to play
 
-	const handlePlayVideo = async (fileHandler, id) => {
-		const url = await getSrc(fileHandler);
-		setUrl(url);
-		setPlayingId(id);
+	const handlePlayVideo = async (video) => {
+		setVideoPlaying({ ...video });
 	};
 
-	const handleOnEndedPlaying = () => {
-		console.log(playingId);
-		db.updateCompletedVideoStatus(playingId, true);
-		db.updateLastCompletedVideo(playlistId, playingId);
+	const handleOnEndedPlaying = async () => {
+		db.updateCompletedVideoStatus(videoPlaying.id, true);
+		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
+		const nextVideo = await nextVideoOntheList(videoPlaying.id);
+		console.log(nextVideo);
+		if (nextVideo) {
+			handlePlayVideo(nextVideo.handler, nextVideo.videoId);
+		}
+	};
+
+	const nextVideoOntheList = (videoId) => {
+		const currentPosition = videos.filter((video) => video.id === videoId).position;
+		console.log(videos);
+		return db.videos.get({ position: currentPosition + 1 });
 	};
 
 	if (!videos || !playlist)
@@ -66,7 +72,7 @@ const PlaylistDetail = () => {
 				</Text>
 			</Flex>
 
-			<Player handleOnEndedPlaying={handleOnEndedPlaying} url={url} />
+			<Player handleOnEndedPlaying={handleOnEndedPlaying} video={videoPlaying} />
 			<VideoList handlePlayVideo={handlePlayVideo} videos={videos} />
 		</Flex>
 	);

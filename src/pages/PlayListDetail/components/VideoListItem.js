@@ -32,7 +32,7 @@ const VideoListItem = ({ video, handlePlayVideo }) => {
 				aria-label='play this video'
 				icon={<Icon as={BsPlayFill} />}
 				_hover={{ backgroundColor: 'teal.200' }}
-				onClick={() => handlePlayVideo(video.handler, video.id)}
+				onClick={() => handlePlayVideo(video)}
 			/>
 			<IconButton
 				boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
