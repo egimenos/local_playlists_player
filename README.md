@@ -13,6 +13,6 @@ https://wicg.github.io/file-system-access/https://wicg.github.io/file-system-acc
 
 ### Usage
 
-`npm start` to start the development server in localhost:3000
-`npm test` to run the test suite (work in progress)
-`npm run build` to get a production build 
+`npm start` to start the development server in localhost:3000   
+`npm test` to run the test suite (work in progress).  
+`npm run build` to get a production build.   
