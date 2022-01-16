@@ -24,6 +24,21 @@ class PlayListsDB extends Dexie {
 			});
 	}
 
+	async addVideosToPlaylist(playlistId, videos) {
+		for (const [index, video] of videos.entries()) {
+			console.log(video, index);
+			const result = await this.videos.add({
+				title: video.name,
+				handler: video,
+				completed: false,
+				playlistId: playlistId,
+				position: index + 1,
+			});
+
+			console.log(result);
+		}
+	}
+
 	deletePlaylist(playlistId) {
 		return this.transaction('rw', this.playlists, this.videos, () => {
 			this.videos.where({ playlistId }).delete();
