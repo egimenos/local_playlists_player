@@ -1,11 +1,16 @@
 import { Flex } from '@chakra-ui/react';
 import VideoListItem from './VideoListItem';
 
-const VideoList = ({ videos, handlePlayVideo }) => {
+const VideoList = ({ videos, handlePlayVideo, handleDeleteVideo }) => {
 	return (
-		<Flex direction='column'>
+		<Flex height='31vh' overflowY='scroll' direction='column'>
 			{videos.map((video) => (
-				<VideoListItem key={video.id} video={video} handlePlayVideo={handlePlayVideo} />
+				<VideoListItem
+					key={video.id}
+					video={video}
+					handlePlayVideo={handlePlayVideo}
+					handleDeleteVideo={handleDeleteVideo}
+				/>
 			))}
 		</Flex>
 	);

@@ -26,20 +26,25 @@ const PlaylistDetail = () => {
 		setVideoPlaying({ ...video });
 	};
 
-	const handleOnEndedPlaying = async () => {
+	const handleNextVideo = async () => {
+		const nextVideo = await nextVideoOntheList();
+		if (nextVideo[0]) {
+			await handlePlayVideo(nextVideo[0]);
+		} else setVideoPlaying(null);
+	};
+
+	const handleOnEndedPlaying = () => {
 		db.updateCompletedVideoStatus(videoPlaying.id, true);
 		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
-		const nextVideo = await nextVideoOntheList();
-		console.log(nextVideo);
-		if (nextVideo[0]) {
-			handlePlayVideo(nextVideo[0]);
-		}
 	};
 
 	const nextVideoOntheList = () => {
 		const currentPosition = videoPlaying.position;
-		console.log(currentPosition, playlistId);
 		return db.videos.where({ position: currentPosition + 1, playlistId: Number(playlistId) }).toArray();
+	};
+
+	const handleDeleteVideo = (videoId) => {
+		db.deleteVideo(videoId);
 	};
 
 	if (!videos || !playlist)
@@ -69,7 +74,7 @@ const PlaylistDetail = () => {
 		);
 
 	return (
-		<Flex p='4' direction='column' height='100vh'>
+		<Flex p='4' direction='column'>
 			<Flex justify='start'>
 				<Text mr='4' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Playlist:
@@ -79,8 +84,14 @@ const PlaylistDetail = () => {
 				</Text>
 			</Flex>
 
-			<Player handleOnEndedPlaying={handleOnEndedPlaying} video={videoPlaying} />
-			<VideoList handlePlayVideo={handlePlayVideo} videos={videos} />
+			{videoPlaying ? (
+				<Player handleNextVideo={handleNextVideo} handleOnEndedPlaying={handleOnEndedPlaying} video={videoPlaying} />
+			) : (
+				<Text textAlign='center' mb='10' color='purple.700' fontSize='2xl' fontWeight='bolder'>
+					Choose video to play!
+				</Text>
+			)}
+			<VideoList handleDeleteVideo={handleDeleteVideo} handlePlayVideo={handlePlayVideo} videos={videos} />
 		</Flex>
 	);
 };

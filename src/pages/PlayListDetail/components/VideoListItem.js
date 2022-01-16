@@ -2,13 +2,12 @@ import { Text, Flex, IconButton, Tag, Icon } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { BsPlayFill } from 'react-icons/bs';
 
-const VideoListItem = ({ video, handlePlayVideo }) => {
+const VideoListItem = ({ video, handlePlayVideo, handleDeleteVideo }) => {
 	return (
 		<Flex
-			overflow-y='scroll'
 			justifyContent='space-between'
 			px='6'
-			py='2'
+			py='1'
 			borderRadius='6px'
 			backgroundColor='white'
 			boxShadow='sm'
@@ -17,7 +16,7 @@ const VideoListItem = ({ video, handlePlayVideo }) => {
 			borderColor='gray.200'
 		>
 			<Tag mr='4'>{video.position}</Tag>
-			<Text fontSize='xl' color='purple.700' fontWeight='bold'>
+			<Text fontSize='md' color='purple.700' fontWeight='bold'>
 				{video.title}
 			</Text>
 			{video.completed && (
@@ -43,6 +42,7 @@ const VideoListItem = ({ video, handlePlayVideo }) => {
 				aria-label='delete video from playlist'
 				icon={<DeleteIcon />}
 				_hover={{ backgroundColor: 'red.100' }}
+				onClick={() => handleDeleteVideo(video.id)}
 			/>
 		</Flex>
 	);

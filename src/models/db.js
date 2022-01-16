@@ -31,6 +31,10 @@ class PlayListsDB extends Dexie {
 		});
 	}
 
+	deleteVideo(videoId) {
+		this.videos.delete(videoId);
+	}
+
 	updateCompletedVideoStatus(id, status) {
 		this.videos.update(id, { completed: status });
 	}

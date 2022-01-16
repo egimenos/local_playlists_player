@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Box } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import { useState, useEffect, useCallback } from 'react';
 import { getSrc } from '../../../utils/getSrc';
@@ -22,7 +22,16 @@ const Player = ({ video, handleOnEndedPlaying }) => {
 	return (
 		<Flex mb='4' align='center' direction='column'>
 			<Text mb='2'>{video?.title}</Text>
-			<ReactPlayer onEnded={handleOnEndedPlaying} playing={true} controls={true} url={url} />
+			<Box>
+				<ReactPlayer
+					height='50vh'
+					width='100%'
+					onEnded={handleOnEndedPlaying}
+					playing={true}
+					controls={true}
+					url={url}
+				/>
+			</Box>
 		</Flex>
 	);
 };
