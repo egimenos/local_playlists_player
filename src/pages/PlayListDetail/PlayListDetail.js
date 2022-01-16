@@ -1,4 +1,4 @@
-import { Center, Flex, Spinner, Text, IconButton } from '@chakra-ui/react';
+import { Center, Flex, Spinner, Text, IconButton, Box } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useParams } from 'react-router-dom';
 import VideoList from './components/VideoList';
@@ -119,7 +119,9 @@ const PlaylistDetail = () => {
 					Choose video to play!
 				</Text>
 			)}
-			<VideoList handleDeleteVideo={handleDeleteVideo} handlePlayVideo={handlePlayVideo} videos={videos} />
+			<Box height='31vh' overflowY='scroll'>
+				<VideoList handleDeleteVideo={handleDeleteVideo} handlePlayVideo={handlePlayVideo} videos={videos} />
+			</Box>
 		</Flex>
 	);
 };

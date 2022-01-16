@@ -3,7 +3,7 @@ import VideoListItem from './VideoListItem';
 
 const VideoList = ({ videos, handlePlayVideo, handleDeleteVideo }) => {
 	return (
-		<Flex height='31vh' overflowY='scroll' direction='column'>
+		<Flex direction='column'>
 			{videos.map((video) => (
 				<VideoListItem
 					key={video.id}
