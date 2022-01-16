@@ -1,30 +1,18 @@
 # Local Playlists Player
 
-This apps tries to leverage the new FileSystemAccess API to allow the reproduction of video playlists from a local source in the browser.
+### Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This apps tries to leverage the new FileSystemAccess API to allow the reproduction of video playlists from a local source in the browser. The app stores the handlers of the files in IndexedDB so they can be retrieved and played even if the browser and all the sessions are closed.
 
-## Available Scripts
 
-In the project directory, you can run:
+The app has been made with React, there is a demo here: https://local-playlists-player.vercel.app/
 
-### `npm start`
+Please bear in mind that the FileSystemAccess API is still a experimental feature. The app has been tested in Chrome 97.0.4692.71.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://wicg.github.io/file-system-access/https://wicg.github.io/file-system-access/
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Usage
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
+`npm start` to start the development server in localhost:3000
+`npm test` to run the test suite (work in progress)
+`npm run build` to get a production build 
