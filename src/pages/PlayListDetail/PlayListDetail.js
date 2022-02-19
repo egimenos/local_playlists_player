@@ -119,7 +119,7 @@ const PlaylistDetail = () => {
 					Choose video to play!
 				</Text>
 			)}
-			<Box height='31vh' overflowY='scroll'>
+			<Box>
 				<VideoList handleDeleteVideo={handleDeleteVideo} handlePlayVideo={handlePlayVideo} videos={videos} />
 			</Box>
 		</Flex>

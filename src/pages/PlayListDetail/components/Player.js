@@ -24,7 +24,7 @@ const Player = ({ video, handleOnEndedPlaying }) => {
 			<Text mb='2'>{video?.title}</Text>
 			<Box>
 				<ReactPlayer
-					height='50vh'
+					height='100%'
 					width='100%'
 					onEnded={handleOnEndedPlaying}
 					playing={true}
