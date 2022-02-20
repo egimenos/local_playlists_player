@@ -15,7 +15,7 @@ const PlaylistDetail = () => {
 	const playlist = useLiveQuery(() => db.playlists.where({ id: Number(playlistId) }).toArray(), []);
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
-	const [videoPlaying, setVideoPlaying] = useState(null); // video url to play
+	const [videoPlaying, setVideoPlaying] = useState(null); // video to play
 
 	useEffect(() => {
 		if (playlist) {
