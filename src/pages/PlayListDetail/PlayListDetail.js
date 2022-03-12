@@ -44,7 +44,7 @@ const PlaylistDetail = () => {
 		} else setVideoPlaying(null);
 	};
 
-	const handleOnEndedPlaying = () => {
+	const handleOnEndedPlaying = async () => {
 		db.updateCompletedVideoStatus(videoPlaying.id, true);
 		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
 	};
@@ -135,10 +135,10 @@ const PlaylistDetail = () => {
 				<AddVideos />
 			</Flex>
 
-			{videoPlaying ? (
-				<Player handleNextVideo={handleNextVideo} handleOnEndedPlaying={handleOnEndedPlaying} url={url} title={title} />
+			{url ? (
+				<Player handleOnEndedPlaying={handleOnEndedPlaying} url={url} title={title} />
 			) : (
-				<Text textAlign='center' mb='10' color='purple.700' fontSize='2xl' fontWeight='bolder'>
+				<Text textAlign='center' my='5' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Choose video to play!
 				</Text>
 			)}

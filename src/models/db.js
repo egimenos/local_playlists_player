@@ -26,7 +26,6 @@ class PlayListsDB extends Dexie {
 
 	async addVideosToPlaylist(playlistId, videos) {
 		for (const [index, video] of videos.entries()) {
-			console.log(video, index);
 			this.videos.add({
 				title: video.name,
 				handler: video,
