@@ -1,4 +1,4 @@
-import { Center, Flex, Spinner, Text, IconButton, Box } from '@chakra-ui/react';
+import { Center, Flex, Spinner, Text, IconButton, Box, Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useParams } from 'react-router-dom';
 import VideoList from './components/VideoList';
@@ -74,7 +74,7 @@ const PlaylistDetail = () => {
 					backgroundColor='accent'
 					color='white'
 					onClick={handleAddVideos}
-					aria-label='add new playlist'
+					aria-label='add more videos'
 					icon={<AddIcon />}
 					_hover={{ backgroundColor: 'teal.200' }}
 				/>
@@ -118,6 +118,20 @@ const PlaylistDetail = () => {
 				<Text color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					{playlist[0].title}
 				</Text>
+				{videoPlaying && (
+					<Button
+						boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
+						backgroundColor='accent'
+						color='white'
+						onClick={handleNextVideo}
+						aria-label='add more videos'
+						icon={<AddIcon />}
+						_hover={{ backgroundColor: 'teal.200' }}
+						ml='auto'
+					>
+						Play Next video
+					</Button>
+				)}
 				<AddVideos />
 			</Flex>
 
