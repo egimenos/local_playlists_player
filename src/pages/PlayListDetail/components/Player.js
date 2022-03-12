@@ -1,4 +1,4 @@
-import { Flex, Text, Box, Tag } from '@chakra-ui/react';
+import { Flex, Box, Tag } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 
 const Player = ({ url, title, handleOnEndedPlaying }) => {
