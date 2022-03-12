@@ -1,4 +1,4 @@
-import { Center, Flex, Spinner, Text, IconButton, Box } from '@chakra-ui/react';
+import { Center, Flex, Spinner, Text, IconButton, Box, Button } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useParams } from 'react-router-dom';
 import VideoList from './components/VideoList';
@@ -7,6 +7,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../models/db';
 import { useState, useEffect } from 'react';
 import { selectVideoFiles } from '../../services/videoSelector.service';
+import getUrlToPlay from '../../utils/getUrlToPlay';
 
 const PlaylistDetail = () => {
 	const params = useParams();
@@ -16,16 +17,24 @@ const PlaylistDetail = () => {
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
 	const [videoPlaying, setVideoPlaying] = useState(null); // video to play
+	const [url, setUrl] = useState(null);
+	const [title, setTitle] = useState(null);
 
 	useEffect(() => {
 		if (playlist) {
 			const lastPlayed = playlist[0]?.lastPlayed;
-			db.videos.get(lastPlayed).then((video) => setVideoPlaying(video));
+			db.videos.get(lastPlayed).then((video) => {
+				setVideoPlaying(video);
+			});
 		}
 	}, [playlist]);
 
 	const handlePlayVideo = async (video) => {
 		setVideoPlaying({ ...video });
+		const urlToPlay = await getUrlToPlay(video.handler);
+		const title = video.title;
+		setUrl(urlToPlay);
+		setTitle(title);
 	};
 
 	const handleNextVideo = async () => {
@@ -35,7 +44,7 @@ const PlaylistDetail = () => {
 		} else setVideoPlaying(null);
 	};
 
-	const handleOnEndedPlaying = () => {
+	const handleOnEndedPlaying = async () => {
 		db.updateCompletedVideoStatus(videoPlaying.id, true);
 		db.updateLastCompletedVideo(playlistId, videoPlaying.id);
 	};
@@ -65,7 +74,7 @@ const PlaylistDetail = () => {
 					backgroundColor='accent'
 					color='white'
 					onClick={handleAddVideos}
-					aria-label='add new playlist'
+					aria-label='add more videos'
 					icon={<AddIcon />}
 					_hover={{ backgroundColor: 'teal.200' }}
 				/>
@@ -109,13 +118,27 @@ const PlaylistDetail = () => {
 				<Text color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					{playlist[0].title}
 				</Text>
+				{videoPlaying && (
+					<Button
+						boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
+						backgroundColor='accent'
+						color='white'
+						onClick={handleNextVideo}
+						aria-label='add more videos'
+						icon={<AddIcon />}
+						_hover={{ backgroundColor: 'teal.200' }}
+						ml='auto'
+					>
+						Play Next video
+					</Button>
+				)}
 				<AddVideos />
 			</Flex>
 
-			{videoPlaying ? (
-				<Player handleNextVideo={handleNextVideo} handleOnEndedPlaying={handleOnEndedPlaying} video={videoPlaying} />
+			{url ? (
+				<Player handleOnEndedPlaying={handleOnEndedPlaying} url={url} title={title} />
 			) : (
-				<Text textAlign='center' mb='10' color='purple.700' fontSize='2xl' fontWeight='bolder'>
+				<Text textAlign='center' my='5' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Choose video to play!
 				</Text>
 			)}

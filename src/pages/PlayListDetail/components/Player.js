@@ -1,27 +1,12 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Box, Tag } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
-import { useState, useEffect, useCallback } from 'react';
-import { getSrc } from '../../../utils/getSrc';
 
-const Player = ({ video, handleOnEndedPlaying }) => {
-	const [url, setUrl] = useState('');
-
-	const getUrlToPlay = useCallback(async (handler) => {
-		try {
-			const urlToPlay = await getSrc(handler);
-			setUrl(urlToPlay);
-		} catch (error) {
-			console.log(error);
-		}
-	}, []);
-
-	useEffect(() => {
-		getUrlToPlay(video?.handler);
-	}, [video, getUrlToPlay]);
-
+const Player = ({ url, title, handleOnEndedPlaying }) => {
 	return (
 		<Flex mb='4' align='center' direction='column'>
-			<Text mb='2'>{video?.title}</Text>
+			<Tag color='white' backgroundColor='purple.300' alignSelf='start' my='2'>
+				{title}
+			</Tag>
 			<Box>
 				<ReactPlayer
 					height='100%'
