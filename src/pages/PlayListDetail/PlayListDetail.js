@@ -7,6 +7,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../models/db';
 import { useState, useEffect } from 'react';
 import { selectVideoFiles } from '../../services/videoSelector.service';
+import getUrlToPlay from '../../utils/getUrlToPlay';
 
 const PlaylistDetail = () => {
 	const params = useParams();
@@ -16,16 +17,24 @@ const PlaylistDetail = () => {
 	const videos = useLiveQuery(() => db.videos.where({ playlistId: Number(playlistId) }).toArray(), []);
 
 	const [videoPlaying, setVideoPlaying] = useState(null); // video to play
+	const [url, setUrl] = useState(null);
+	const [title, setTitle] = useState(null);
 
 	useEffect(() => {
 		if (playlist) {
 			const lastPlayed = playlist[0]?.lastPlayed;
-			db.videos.get(lastPlayed).then((video) => setVideoPlaying(video));
+			db.videos.get(lastPlayed).then((video) => {
+				setVideoPlaying(video);
+			});
 		}
 	}, [playlist]);
 
 	const handlePlayVideo = async (video) => {
 		setVideoPlaying({ ...video });
+		const urlToPlay = await getUrlToPlay(video.handler);
+		const title = video.title;
+		setUrl(urlToPlay);
+		setTitle(title);
 	};
 
 	const handleNextVideo = async () => {
@@ -113,7 +122,7 @@ const PlaylistDetail = () => {
 			</Flex>
 
 			{videoPlaying ? (
-				<Player handleNextVideo={handleNextVideo} handleOnEndedPlaying={handleOnEndedPlaying} video={videoPlaying} />
+				<Player handleNextVideo={handleNextVideo} handleOnEndedPlaying={handleOnEndedPlaying} url={url} title={title} />
 			) : (
 				<Text textAlign='center' mb='10' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Choose video to play!
