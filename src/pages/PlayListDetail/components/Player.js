@@ -1,10 +1,12 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Text, Box, Tag } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 
 const Player = ({ url, title, handleOnEndedPlaying }) => {
 	return (
 		<Flex mb='4' align='center' direction='column'>
-			<Text mb='2'>{title}</Text>
+			<Tag color='white' backgroundColor='purple.300' alignSelf='start' my='2'>
+				{title}
+			</Tag>
 			<Box>
 				<ReactPlayer
 					height='100%'
