@@ -23,6 +23,7 @@ const PlaylistDetail = () => {
 	useEffect(() => {
 		if (playlist) {
 			const lastPlayed = playlist[0]?.lastPlayed;
+			console.log(lastPlayed);
 			db.videos.get(lastPlayed).then((video) => {
 				setVideoPlaying(video);
 			});
@@ -38,10 +39,14 @@ const PlaylistDetail = () => {
 	};
 
 	const handleNextVideo = async () => {
-		const nextVideo = await nextVideoOntheList();
-		if (nextVideo[0]) {
-			await handlePlayVideo(nextVideo[0]);
-		} else setVideoPlaying(null);
+		if (!url) {
+			handlePlayVideo(videoPlaying);
+		} else {
+			const nextVideo = await nextVideoOntheList();
+			if (nextVideo[0]) {
+				await handlePlayVideo(nextVideo[0]);
+			} else setVideoPlaying(null);
+		}
 	};
 
 	const handleOnEndedPlaying = async () => {
