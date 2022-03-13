@@ -1,9 +1,24 @@
 import { Flex, IconButton, Text, Tag } from '@chakra-ui/react';
 import { DeleteIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useCallback } from 'react';
+import playlistDuration from '../../../utils/playlistDuration';
+import humanizedDuration from '../../../utils/timeUtils';
 
 const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 	const navigate = useNavigate();
+
+	const [duration, setDuration] = useState();
+
+	const getTotalDuration = useCallback(async () => {
+		const duration = await playlistDuration.totalPlaylistDuration(playlist.id);
+		setDuration(duration);
+	}, [playlist.id]);
+
+	useEffect(() => {
+		getTotalDuration();
+	}, [getTotalDuration]);
+
 	const handleNavigateToPlaylistDetail = async () => {
 		navigate(`/playlists/${playlist.id}`);
 	};
@@ -22,6 +37,7 @@ const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 			<Text fontSize='xl' color='purple.700' fontWeight='bold'>
 				{playlist.title}
 			</Text>
+			<Text ml='2'>{duration && humanizedDuration(duration)}</Text>
 			<IconButton
 				ml='auto'
 				mr='4'

@@ -1,13 +1,3 @@
-/* const getVideoDuration = async (fileHandler) => {
-	const video = document.createElement('video');
-	video.preload = 'metadata';
-	video.onloadedmetadata = function () {
-		window.URL.revokeObjectURL(video.src);
-		return video.duration;
-	};
-	video.src = URL.createObjectURL(await fileHandler.getFile());
-}; */
-
 const getVideoDuration = async (fileHandler) => {
 	const file = await fileHandler.getFile();
 	return new Promise((resolve, reject) => {
