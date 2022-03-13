@@ -23,7 +23,6 @@ const PlaylistDetail = () => {
 	useEffect(() => {
 		if (playlist) {
 			const lastPlayed = playlist[0]?.lastPlayed;
-			console.log(lastPlayed);
 			db.videos.get(lastPlayed).then((video) => {
 				setVideoPlaying(video);
 			});
