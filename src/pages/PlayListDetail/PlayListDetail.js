@@ -8,6 +8,8 @@ import { db } from '../../models/db';
 import { useState, useEffect } from 'react';
 import { selectVideoFiles } from '../../services/videoSelector.service';
 import getUrlToPlay from '../../utils/getUrlToPlay';
+import usePlaylistStats from '../../hooks/usePlaylistStats';
+import PlaylistStats from './components/PlaylistStats';
 
 const PlaylistDetail = () => {
 	const params = useParams();
@@ -19,6 +21,7 @@ const PlaylistDetail = () => {
 	const [videoPlaying, setVideoPlaying] = useState(null); // video to play
 	const [url, setUrl] = useState(null);
 	const [title, setTitle] = useState(null);
+	const { duration, completed, progress } = usePlaylistStats(videos);
 
 	useEffect(() => {
 		if (playlist) {
@@ -119,9 +122,10 @@ const PlaylistDetail = () => {
 				<Text mr='4' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					Playlist:
 				</Text>
-				<Text color='purple.700' fontSize='2xl' fontWeight='bolder'>
+				<Text mr='2' color='purple.700' fontSize='2xl' fontWeight='bolder'>
 					{playlist[0].title}
 				</Text>
+
 				{videoPlaying && (
 					<Button
 						boxShadow='rgb(14 14 44 / 40%) 0px -1px 0px 0px inset'
@@ -138,7 +142,9 @@ const PlaylistDetail = () => {
 				)}
 				<AddVideos />
 			</Flex>
-
+			<Box alignSelf='start'>
+				<PlaylistStats stats={{ duration, completed, progress }} />
+			</Box>
 			{url ? (
 				<Player handleOnEndedPlaying={handleOnEndedPlaying} url={url} title={title} />
 			) : (

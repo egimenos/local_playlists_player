@@ -11,7 +11,7 @@ const PlayListItem = ({ playlist, handleDeletePlaylist }) => {
 	const [duration, setDuration] = useState();
 
 	const getTotalDuration = useCallback(async () => {
-		const duration = await playlistDuration.totalPlaylistDuration(playlist.id);
+		const duration = await playlistDuration.totalPlaylistDuration({ playlistId: playlist.id });
 		setDuration(duration);
 	}, [playlist.id]);
 
