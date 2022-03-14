@@ -1,6 +1,7 @@
 import { Text, Flex, IconButton, Tag, Icon } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { BsPlayFill } from 'react-icons/bs';
+import humanizedDuration from '../../../utils/timeUtils';
 
 const VideoListItem = ({ video, handlePlayVideo, handleDeleteVideo }) => {
 	return (
@@ -16,8 +17,11 @@ const VideoListItem = ({ video, handlePlayVideo, handleDeleteVideo }) => {
 			borderColor='gray.200'
 		>
 			<Tag mr='4'>{video.position}</Tag>
-			<Text fontSize='md' color='purple.700' fontWeight='bold'>
+			<Text mr='4' fontSize='md' color='purple.700' fontWeight='bold'>
 				{video.title}
+			</Text>
+			<Text fontSize='md' color='purple.700' fontWeight='bold'>
+				{humanizedDuration(video.duration)}
 			</Text>
 			{video.completed && (
 				<Text fontWeight='bold' color='purple.700' mr='4' ml='auto'>

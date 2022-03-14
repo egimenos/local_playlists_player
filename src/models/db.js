@@ -1,11 +1,12 @@
 import Dexie from 'dexie';
+import getVideoDuration from '../utils/getVideoDuration';
 
 class PlayListsDB extends Dexie {
 	constructor() {
 		super('PlayListsDB');
 		this.version(1).stores({
 			playlists: '++id,title, lastPlayed',
-			videos: '++id, title, handler, completed, playlistId, [position+playlistId]',
+			videos: '++id, title, handler, completed, playlistId, [position+playlistId], duration',
 		});
 	}
 
@@ -16,9 +17,17 @@ class PlayListsDB extends Dexie {
 				title: playlist.title,
 				lastPlayed: 1,
 			})
-			.then((id) => {
+			.then(async (id) => {
 				for (const [index, video] of sortedVideos.entries()) {
-					this.videos.add({ title: video.name, handler: video, completed: false, playlistId: id, position: index + 1 });
+					const duration = await getVideoDuration(video);
+					this.videos.add({
+						title: video.name,
+						handler: video,
+						completed: false,
+						playlistId: id,
+						position: index + 1,
+						duration: duration,
+					});
 				}
 				return id;
 			});
@@ -26,12 +35,14 @@ class PlayListsDB extends Dexie {
 
 	async addVideosToPlaylist(playlistId, videos) {
 		for (const [index, video] of videos.entries()) {
+			const duration = await getVideoDuration(video);
 			this.videos.add({
 				title: video.name,
 				handler: video,
 				completed: false,
 				playlistId: playlistId,
 				position: index + 1,
+				duration: duration,
 			});
 		}
 	}
