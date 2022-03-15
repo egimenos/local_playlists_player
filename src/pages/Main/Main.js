@@ -13,8 +13,8 @@ const Main = () => {
 		await db.addPlaylist(newPlaylist);
 	};
 
-	const handleDeletePlaylist = (id) => {
-		db.deletePlaylist(id);
+	const handleDeletePlaylist = async (id) => {
+		await db.deletePlaylist(id);
 	};
 
 	return (

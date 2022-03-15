@@ -2,6 +2,7 @@ import { db } from '../models/db';
 
 // allows calculating playlist duration either pssing videos collection or playlist id
 const totalPlaylistDuration = async ({ playlistId = null, videos = null } = {}) => {
+	console.log({ playlistId });
 	if (!videos) {
 		videos = await db.videos.filter((item) => item.playlistId === playlistId).toArray();
 	}

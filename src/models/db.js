@@ -18,17 +18,20 @@ class PlayListsDB extends Dexie {
 				lastPlayed: 1,
 			})
 			.then(async (id) => {
+				const videos = [];
 				for (const [index, video] of sortedVideos.entries()) {
 					const duration = await getVideoDuration(video);
-					this.videos.add({
+					const item = {
 						title: video.name,
 						handler: video,
 						completed: false,
 						playlistId: id,
 						position: index + 1,
 						duration: duration,
-					});
+					};
+					videos.push(item);
 				}
+				this.videos.bulkAdd(videos);
 				return id;
 			});
 	}
