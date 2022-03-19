@@ -20,9 +20,9 @@ https://wicg.github.io/file-system-access/
 
 ### Screenshots
 
-![img](https://imgur.com/vyEHKvZ)
+![img](https://i.imgur.com/vyEHKvZ.jpg)
 
-![img](https://imgur.com/oyXWCm3)
+![img](https://i.imgur.com/oyXWCm3.jpg)
 ### Todo
 
 - [x] Add a test suite
