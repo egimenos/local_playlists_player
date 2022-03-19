@@ -12,28 +12,27 @@ class PlayListsDB extends Dexie {
 
 	addPlaylist(playlist) {
 		const sortedVideos = playlist.videos.sort((a, b) => a.name - b.name);
-		return this.playlists
-			.add({
+		db.transaction('rw', db.playlists, db.videos, async function () {
+			const id = await this.playlists.add({
 				title: playlist.title,
 				lastPlayed: 1,
-			})
-			.then(async (id) => {
-				const videos = [];
-				for (const [index, video] of sortedVideos.entries()) {
-					const duration = await getVideoDuration(video);
-					const item = {
-						title: video.name,
-						handler: video,
-						completed: false,
-						playlistId: id,
-						position: index + 1,
-						duration: duration,
-					};
-					videos.push(item);
-				}
-				this.videos.bulkAdd(videos);
-				return id;
 			});
+			const videos = [];
+			for (const [index, video] of sortedVideos.entries()) {
+				const duration = await Dexie.waitFor(getVideoDuration(video));
+				console.log(duration);
+				const item = {
+					title: video.name,
+					handler: video,
+					completed: false,
+					playlistId: id,
+					position: index + 1,
+					duration: duration,
+				};
+				videos.push(item);
+			}
+			this.videos.bulkAdd(videos);
+		}).then((id) => id);
 	}
 
 	async addVideosToPlaylist(playlistId, videos) {
