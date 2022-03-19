@@ -20,7 +20,6 @@ class PlayListsDB extends Dexie {
 			const videos = [];
 			for (const [index, video] of sortedVideos.entries()) {
 				const duration = await Dexie.waitFor(getVideoDuration(video));
-				console.log(duration);
 				const item = {
 					title: video.name,
 					handler: video,
