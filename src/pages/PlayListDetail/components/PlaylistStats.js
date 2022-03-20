@@ -18,6 +18,9 @@ const PlaylistStats = ({ stats }) => {
 				align='center'
 			>
 				<Text>Time left: {humanizedDuration(stats.duration - stats.completed)}</Text>
+				<Text>Time left: {(stats.duration - stats.completed) / 60}</Text>
+				<Text>Time total: {humanizedDuration(stats.duration)}</Text>
+				<Text>Time completed: {humanizedDuration(stats.completed)}</Text>
 			</Flex>
 			<Progress size='lg' hasStripe colorScheme='blue' value={stats.progress * 100} />
 		</Box>
