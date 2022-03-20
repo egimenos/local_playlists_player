@@ -1,5 +1,5 @@
-import { formatDistance } from 'date-fns';
+import { formatDuration, intervalToDuration } from 'date-fns';
 
-const humanizedDuration = (s) => formatDistance(0, s * 1000, { includeSeconds: true });
+const humanizedDuration = (s) => formatDuration(intervalToDuration({ start: 0, end: s * 1000 }));
 
 export default humanizedDuration;
