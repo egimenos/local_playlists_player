@@ -25,6 +25,6 @@ https://wicg.github.io/file-system-access/
 ![img](https://i.imgur.com/Wdf5ojY.jpg)
 ### Todo
 
-- [x] Add a test suite
-- [x] Allow reordering videos using drap and drop
+- [] Add a test suite
+- [] Allow reordering videos using drap and drop
 
